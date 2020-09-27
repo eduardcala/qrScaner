@@ -44,17 +44,17 @@ class _HomePageState extends State<HomePage> {
     // geo:7.097777129523387,-73.09725180109866
     dynamic futureString = '';
 
-    try {
-      futureString = await BarcodeScanner.scan();
-    } catch (e) {
-      futureString = e.toString();
-    }
+    // try {
+    //   futureString = await BarcodeScanner.scan();
+    // } catch (e) {
+    //   futureString = e.toString();
+    // }
 
-    print('Future String: ${futureString.rawContent}');
+    // print('Future String: ${futureString.rawContent}');
 
-    if( futureString != null ) {
-      print('Tenemos información');
-    }
+    // if( futureString != null ) {
+    //   print('Tenemos información');
+    // }
 
   }
 
