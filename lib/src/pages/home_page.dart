@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:qrreaderapp/src/bloc/scans_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:qrreaderapp/src/pages/direcciones_page.dart';
 import 'package:qrreaderapp/src/pages/mapas_page.dart';
 
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:qrreaderapp/src/utils/utils.dart' as utils;
 
 
 
@@ -64,6 +67,16 @@ class _HomePageState extends State<HomePage> {
       final scan = ScanModel( valor: futureString );
       scansBloc.agregarScan(scan);
 
+      final scan2 = ScanModel( valor: 'geo:7.097777129523387,-73.09725180109866' );
+      scansBloc.agregarScan(scan2);
+
+      if ( Platform.isIOS ) {
+        Future.delayed(Duration(milliseconds: 750), () {
+          utils.abrirScan(scan);
+        });
+      } else {
+        utils.abrirScan(scan);
+      }
     }
 
   }
