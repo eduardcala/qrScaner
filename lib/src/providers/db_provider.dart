@@ -96,4 +96,13 @@ class DBProvider {
     return list;
   }
 
+  // Actualizar Registros
+  updateScan( ScanModel nuevoScan ) async {
+
+    final db = await database;
+    final res = await db.update( 'Scans', nuevoScan.toJson(), where: 'id = ?', whereArgs: [nuevoScan.id] );
+    return res;
+
+  }
+
 }
