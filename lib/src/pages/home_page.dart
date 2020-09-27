@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:qrreaderapp/src/models/scan_model.dart';
 
 import 'package:qrreaderapp/src/pages/direcciones_page.dart';
 import 'package:qrreaderapp/src/pages/mapas_page.dart';
+import 'package:qrreaderapp/src/providers/db_provider.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -42,7 +44,9 @@ class _HomePageState extends State<HomePage> {
   _scanQR() async {
     // http://alizon-web.caladeveloper.xyz/
     // geo:7.097777129523387,-73.09725180109866
-    dynamic futureString = '';
+    // dynamic futureString = '';
+    dynamic futureString = 'http://alizon-web.caladeveloper.xyz/';
+
 
     // try {
     //   futureString = await BarcodeScanner.scan();
@@ -50,11 +54,11 @@ class _HomePageState extends State<HomePage> {
     //   futureString = e.toString();
     // }
 
-    // print('Future String: ${futureString.rawContent}');
+    if( futureString != null ) {
+      final scan = ScanModel( valor: futureString );
+      DBProvider.db.nuevoScan(scan);
 
-    // if( futureString != null ) {
-    //   print('Tenemos información');
-    // }
+    }
 
   }
 
