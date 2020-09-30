@@ -34,6 +34,7 @@ class MapaPage extends StatelessWidget {
       ),
       layers: [
         _crearMapa(),
+        _crearMarcadores( scan )
       ],
     );
 
@@ -52,6 +53,25 @@ class MapaPage extends StatelessWidget {
     );
 
 
+  }
+
+  _crearMarcadores( ScanModel scan ) {
+    return MarkerLayerOptions(
+      markers: <Marker>[
+        Marker(
+          width: 100.0,
+          height: 100.0,
+          point: scan.getLatLng(),
+          builder: ( context ) => Container(
+            child: Icon(
+              Icons.location_on,
+              size: 70.0,
+              color: Theme.of(context).primaryColor,
+            ),
+          )
+        )
+      ]
+    );
   }
 
 }
