@@ -5,9 +5,16 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:qrreaderapp/src/models/scan_model.dart';
 
 
-class MapaPage extends StatelessWidget {
+class MapaPage extends StatefulWidget {
 
+  @override
+  _MapaPageState createState() => _MapaPageState();
+}
+
+class _MapaPageState extends State<MapaPage> {
   final map = new MapController();
+
+  String tipoMapa = 'streets';
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +33,36 @@ class MapaPage extends StatelessWidget {
           )
         ],
       ),
-      body: _crearFlutterMap(scan)
+      body: _crearFlutterMap(scan),
+      floatingActionButton: _crearBotonFlotante( context ),
     );
+  }
+
+  Widget _crearBotonFlotante(BuildContext context) {
+
+    return FloatingActionButton(
+      child: Icon( Icons.repeat ),
+      backgroundColor: Theme.of(context).primaryColor,
+      onPressed: () {
+
+        // streets, dark, light, outdoors, satellite
+        if ( tipoMapa == 'streets' ) {
+          tipoMapa = 'dark';
+        } else if ( tipoMapa == 'dark' ) {
+          tipoMapa = 'light';
+        } else if ( tipoMapa == 'light' ) {
+          tipoMapa = 'outdoors';
+        } else if ( tipoMapa == 'outdoors' ) {
+          tipoMapa = 'satellite';
+        } else {
+          tipoMapa = 'streets';
+        }
+
+        setState((){});
+
+      }
+    );
+
   }
 
   Widget _crearFlutterMap( ScanModel scan ) {
@@ -53,7 +88,7 @@ class MapaPage extends StatelessWidget {
       '{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}',
       additionalOptions: {
         'accessToken': 'pk.eyJ1Ijoia2xlcml0aCIsImEiOiJjanY2MjF4NGIwMG9nM3lvMnN3ZDM1dWE5In0.0SfmUpbW6UFj7ZnRdRyNAw',
-        'id': 'mapbox.streets'
+        'id': 'mapbox.$tipoMapa'
         // streets, dark, light, outdoors, satellite
       }
     );
@@ -79,5 +114,4 @@ class MapaPage extends StatelessWidget {
       ]
     );
   }
-
 }
